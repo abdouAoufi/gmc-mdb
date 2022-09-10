@@ -6,10 +6,10 @@ export const readBook = (req, res, _next) => {
   res.json({ message: "not implemented!" });
 };
 
-export const updateBook = () => {
+export const updateBook = (req, res, _next) => {
   res.json({ message: "not implemented" });
 };
 
-export const deleteBook = () => {
+export const deleteBook = (req, res, _next) => {
   res.json({ message: "not implemented" });
 };
