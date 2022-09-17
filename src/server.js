@@ -5,6 +5,7 @@ import {
 import bookRouter from "./routes/book.js";
 import notFoundRouter from "./routes/404.js";
 import dbClient from "./utils/database.js";
+import userRouter from "./routes/user.js";
 
 const app = express();
 
@@ -12,6 +13,7 @@ const app = express();
 app.use(express.json());
 
 app.use(bookRouter);
+app.use(userRouter)
 app.use(notFoundRouter);
 
 const launchWebServer = () => {
@@ -22,6 +24,7 @@ const launchWebServer = () => {
 
 
 export const bookDB = dbClient.db("books"); 
+export const userDB = dbClient.db("users"); 
 
 dbClient.connect()
   .then(() => {
