@@ -7,3 +7,7 @@ export const createValidation = [
   body("numOfPage").isFloat({ min: 5 }),
   body("IBAN").isString().isLength({ min: 5 }).optional(),
 ];
+
+export const deleteValidation = [
+  body("title").isString().isLength({ min: 3, max: 20 }),
+]
