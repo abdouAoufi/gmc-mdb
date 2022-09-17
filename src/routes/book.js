@@ -5,12 +5,13 @@ import {
   readBook,
   updateBook,
 } from "../controllers/book.js";
+import { createValidation } from "../validation/book-validator.js";
 
 const bookRouter = Router();
 
 bookRouter.get("/get-book", readBook);
 
-bookRouter.post("/create-book", createBook);
+bookRouter.post("/create-book", createValidation, createBook);
 
 bookRouter.post("/update-book", updateBook);
 
