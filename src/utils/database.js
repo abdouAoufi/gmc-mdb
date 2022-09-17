@@ -7,4 +7,5 @@ const URL = `mongodb://localhost:${INFO.DB_PORT}`;
 
 const dbClient = new MongoClient(URL);
 
+
 export default dbClient;

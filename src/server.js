@@ -20,6 +20,9 @@ const launchWebServer = () => {
   });
 }
 
+
+export const bookDB = dbClient.db("books"); 
+
 dbClient.connect()
   .then(() => {
     console.log("MONGODB CONNECTED")
