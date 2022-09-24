@@ -4,6 +4,7 @@ import {
 import {
  userDB
 } from "../server.js";
+import bcrypt from "bcryptjs"
 
 
 export const signupController = (req, res, next) => {
@@ -16,15 +17,20 @@ export const signupController = (req, res, next) => {
    }
   });
  }
- userDB.collection("users").insertOne(req.body).then(() => {
-  res.json({
-   message: "Account created"
-  })
- }).catch(() => {
-  res.json({
-   message: "Failed to create your account"
+ const user = req.body;
+ bcrypt.hash(user.password, 12, (err, hashedValue) => {
+  user.password = hashedValue;
+  userDB.collection("users").insertOne(user).then(() => {
+   res.json({
+    message: "Account created"
+   })
+  }).catch(() => {
+   res.json({
+    message: "Failed to create your account"
+   })
   })
  })
+
 }
 
 
@@ -46,13 +52,15 @@ export const loginController = (req, res, next) => {
     message: "User not found"
    })
   }
-  if (result.password === req.body.password) {
-   return res.status(201).json({
-    message: "Welcome"
+  bcrypt.compare(req.body.password, result.password).then(result => {
+   if (result === true) {
+    return res.status(201).json({
+     message: "Welcome"
+    })
+   }
+   res.status(420).json({
+    message: "password wrong"
    })
-  }
-  res.status(420).json({
-   message: "password wrong"
   })
  })
 }
